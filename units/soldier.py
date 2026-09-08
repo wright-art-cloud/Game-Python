@@ -1,0 +1,1 @@
+"""Soldier unit type."""
