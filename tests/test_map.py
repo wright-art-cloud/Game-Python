@@ -3,6 +3,7 @@
 import pytest
 
 from game.map import Map
+from game.resource import ResourceNode
 from units.soldier import Soldier
 
 
@@ -77,6 +78,20 @@ def test_map_rejects_duplicate_placements():
 
 	with pytest.raises(ValueError, match="occupied"):
 		game_map.add_unit(second_unit)
+
+
+def test_map_adds_and_removes_resource_nodes():
+	game_map = Map(width=5, height=5)
+	resource = ResourceNode((2, 2), "gold", amount=20)
+
+	game_map.add_resource(resource)
+
+	assert game_map.get_resource_at((2, 2)) is resource
+	assert game_map.resources == (resource,)
+
+	game_map.remove_resource(resource)
+
+	assert game_map.get_resource_at((2, 2)) is None
 
 
 def test_map_removes_a_unit():

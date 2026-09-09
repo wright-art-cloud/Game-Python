@@ -11,6 +11,7 @@ class Map:
 		self._width = width
 		self._height = height
 		self._units = {}
+		self._resources = {}
 
 	@property
 	def width(self):
@@ -27,6 +28,11 @@ class Map:
 		"""Return all units currently placed on the map."""
 		return tuple(self._units.values())
 
+	@property
+	def resources(self):
+		"""Return all collectible resources currently on the map."""
+		return tuple(self._resources.values())
+
 	def is_within_bounds(self, position):
 		"""Return whether a position is a valid map coordinate."""
 		if not self._is_position(position):
@@ -42,6 +48,26 @@ class Map:
 	def get_unit_at(self, position):
 		"""Return the unit at a position, or None when it is empty."""
 		return self._units.get(position)
+
+	def get_resource_at(self, position):
+		"""Return the resource at a position, or None when it is empty."""
+		return self._resources.get(position)
+
+	def add_resource(self, resource):
+		"""Place a collectible resource on the map."""
+		if not self.is_within_bounds(resource.position):
+			raise ValueError("Resource position is outside the map")
+		if self.is_occupied(resource.position) or resource.position in self._resources:
+			raise ValueError("Map position is already occupied")
+
+		self._resources[resource.position] = resource
+
+	def remove_resource(self, resource):
+		"""Remove a collected resource from the map."""
+		if self._resources.get(resource.position) is not resource:
+			raise ValueError("Resource is not on the map")
+
+		del self._resources[resource.position]
 
 	def add_unit(self, unit):
 		"""Place a unit on the map."""

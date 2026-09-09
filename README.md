@@ -29,6 +29,16 @@ On Windows, activate the environment with:
 python main.py
 ```
 
+To play with the graphical window:
+
+```bash
+python window.py
+```
+
+Use the arrow keys to move the selected unit, `Tab` to select another unit,
+and `E` or `Enter` to end the turn. Moving onto a resource collects it
+automatically.
+
 ## Test
 
 ```bash

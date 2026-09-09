@@ -5,6 +5,7 @@ import pytest
 from game.game import Game
 from game.map import Map
 from game.player import Player
+from game.resource import ResourceNode
 from units.archer import Archer
 from units.soldier import Soldier
 
@@ -55,6 +56,22 @@ def test_game_adds_and_moves_a_player_unit():
 
     assert unit in player.units
     assert game.game_map.get_unit_at((2, 2)) is unit
+
+
+def test_moving_onto_a_resource_collects_it():
+    game = Game(game_map=Map(width=5, height=5))
+    player = Player("Player 1")
+    game.add_player(player)
+    game.add_player(Player("Player 2"))
+    unit = Soldier(position=(1, 1))
+    game.add_unit(player, unit)
+    game.game_map.add_resource(ResourceNode((2, 1), "gold", amount=20))
+
+    resource = game.move_unit(player, unit, (2, 1))
+
+    assert resource.resource_type == "gold"
+    assert player.resources.get("gold") == 20
+    assert game.game_map.resources == ()
 
 
 def test_game_resolves_polymorphic_attack_and_victory():
