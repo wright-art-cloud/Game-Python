@@ -1,6 +1,6 @@
 """Entry point and terminal interface for the strategy game."""
 
-from game.game import Game
+from game.game_engine import Game
 from game.map import Map
 from game.player import Player
 from units.archer import Archer

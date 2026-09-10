@@ -3,7 +3,7 @@
 import pytest
 
 from game.map import Map
-from units.soldier import Soldier
+from units.base_unit import Unit
 
 
 def test_map_stores_dimensions():

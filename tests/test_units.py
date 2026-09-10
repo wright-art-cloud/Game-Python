@@ -2,7 +2,7 @@
 
 import pytest
 
-from units.unit import Unit
+from units.base_unit import Unit
 from units.archer import Archer
 from units.soldier import Soldier
 from units.tank import Tank

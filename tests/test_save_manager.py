@@ -1,7 +1,7 @@
 """Tests for JSON save and load operations."""
 
 from ai.ai_player import AIPlayer
-from game.game import Game
+from game.engine import Game
 from game.map import Map
 from game.player import Player
 from game.resource import Resource

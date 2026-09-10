@@ -1,8 +1,9 @@
 """Tests for the game engine."""
 
+import game
 import pytest
 
-from game.game import Game
+from game.engine import Game
 from game.map import Map
 from game.player import Player
 from units.archer import Archer

@@ -78,6 +78,10 @@ class Map:
 		unit.set_position(destination)
 		self._units[destination] = unit
 
+	def end_turn(self):
+		"""End the current turn for this map."""
+		return None
+
 	@staticmethod
 	def _distance(first_position, second_position):
 		return sum(

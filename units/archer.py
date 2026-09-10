@@ -1,6 +1,6 @@
 """Archer unit type."""
 
-from units.unit import Unit
+from units.base_unit import Unit
 
 
 class Archer(Unit):

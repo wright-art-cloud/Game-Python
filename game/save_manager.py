@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from ai.ai_player import AIPlayer
-from game.game import Game
+from game.game_engine import Game
 from game.map import Map
 from game.player import Player
 from game.resource import Resource

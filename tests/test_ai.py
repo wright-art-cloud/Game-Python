@@ -1,7 +1,7 @@
 """Tests for the rule-based AI player."""
 
 from ai.ai_player import AIPlayer
-from game.game import Game
+from game.engine import Game
 from game.map import Map
 from game.player import Player
 from units.soldier import Soldier
