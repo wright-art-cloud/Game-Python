@@ -21,19 +21,26 @@ def main():
     print("Terminal Strategy Game")
     print("Defeat the other player's units to win.")
 
-    while not game.is_over:
-        display_status(game)
-        display_menu()
-        choice = input("Choose an action: ").strip()
+while not game.is_over:
+    display_status(game)
+    display_map(game)
+    display_resources(game)
+    display_menu()
 
-        if choice == "0":
-            print("Goodbye!")
-            return
+    choice = input("Choose an action: ").strip()
 
-        try:
-            handle_action(game, choice)
-        except ValueError as error:
-            print(f"Action could not be completed: {error}")
+    if choice == "0":
+        print("Goodbye!")
+        return
+
+    try:
+        action_completed = handle_action(game, choice)
+
+        if action_completed and not game.is_over:
+            game.end_turn()
+
+    except ValueError as error:
+        print(f"Action could not be completed: {error}")
 
     print(f"{game.winner.name} wins the game!")
 
@@ -58,14 +65,11 @@ def create_game():
 
 def display_menu():
     """Print the actions available during a turn."""
-    print("\n1. View map")
-    print("2. View units")
-    print("3. Move unit")
-    print("4. Attack")
-    print("5. Gather resources")
-    print("6. Build unit")
-    print("7. View resources")
-    print("8. End turn")
+    print("\nChoose one action:")
+    print("1. Build unit")
+    print("2. Move unit")
+    print("3. Attack")
+    print("4. Gather resources")
     print("0. Quit")
 
 
@@ -78,22 +82,22 @@ def display_status(game):
 
 
 def handle_action(game, choice):
-    """Execute one selected menu action."""
+    """Execute one selected turn action."""
     actions = {
-        "1": display_map,
-        "2": display_units,
-        "3": move_unit,
-        "4": attack_unit,
-        "5": gather_resources,
-        "6": build_unit,
-        "7": display_resources,
-        "8": end_turn,
+        "1": build_unit,
+        "2": move_unit,
+        "3": attack_unit,
+        "4": gather_resources,
     }
+
     action = actions.get(choice)
+
     if action is None:
-        print("Please choose a number from the menu.")
-        return
+        print("Please choose 1, 2, 3, or 4.")
+        return False
+
     action(game)
+    return True
 
 
 def display_map(game):
