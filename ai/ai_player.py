@@ -1,9 +1,7 @@
 """AI-controlled player behavior."""
+from game.player import Player
 
-from ai.player_ai import AIPlayer
-
-
-class AIPlayer(AIPlayer):
+class AIPlayer(Player):
 	"""Player that makes simple rule-based decisions."""
 
 	def take_turn(self, game):
