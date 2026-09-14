@@ -1,6 +1,36 @@
 """Resource types and resource management."""
 
+class ResourceNode:
+    """Represent a collectible resource placed on the map."""
 
+    RESOURCE_TYPES = ("gold", "food", "wood")
+
+    def __init__(self, position, resource_type, amount=10):
+        if resource_type not in self.RESOURCE_TYPES:
+            raise ValueError(f"Unknown resource type: {resource_type}")
+
+        if (
+            not isinstance(position, tuple)
+            or len(position) != 2
+            or any(
+                not isinstance(coordinate, int)
+                or isinstance(coordinate, bool)
+                for coordinate in position
+            )
+        ):
+            raise ValueError("Position must be a pair of integers")
+
+        if (
+            not isinstance(amount, int)
+            or isinstance(amount, bool)
+            or amount <= 0
+        ):
+            raise ValueError("Resource amount must be a positive integer")
+
+        self.position = position
+        self.resource_type = resource_type
+        self.amount = amount
+		
 class Resource:
 	"""Store and validate a player's gold, food, and wood."""
 

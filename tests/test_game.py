@@ -8,7 +8,7 @@ from game.map import Map
 from game.player import Player
 from units.archer import Archer
 from units.soldier import Soldier
-
+from game.resource import ResourceNode
 
 def test_project_packages_import():
     """The planned package structure can be imported by Python."""
@@ -106,3 +106,28 @@ def test_game_rejects_duplicate_player_names():
 
     with pytest.raises(ValueError, match="unique"):
         game.add_player(Player("Player 1"))
+
+
+def test_moving_onto_a_resource_collects_it():
+    game = Game(game_map=Map(width=5, height=5))
+    first_player = Player("Player 1")
+    second_player = Player("Player 2")
+
+    game.add_player(first_player)
+    game.add_player(second_player)
+
+    unit = Soldier(position=(1, 1))
+    game.add_unit(first_player, unit)
+
+    resource = ResourceNode((2, 1), "gold", 20)
+    game.game_map.add_resource(resource)
+
+    collected_resource = game.move_unit(
+        first_player,
+        unit,
+        (2, 1),
+    )
+
+    assert collected_resource is resource
+    assert first_player.resources.get("gold") == 20
+    assert game.game_map.get_resource_at((2, 1)) is None        
