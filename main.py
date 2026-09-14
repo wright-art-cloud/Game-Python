@@ -14,36 +14,35 @@ UNIT_TYPES = {
     "3": ("Tank", Tank, {"gold": 80, "food": 40, "wood": 30}),
 }
 
-
 def main():
     """Create a game and run the terminal interface."""
     game = create_game()
+
     print("Terminal Strategy Game")
     print("Defeat the other player's units to win.")
 
-while not game.is_over:
-    display_status(game)
-    display_map(game)
-    display_resources(game)
-    display_menu()
+    while not game.is_over:
+        display_status(game)
+        display_map(game)
+        display_resources(game)
+        display_menu()
 
-    choice = input("Choose an action: ").strip()
+        choice = input("Choose an action: ").strip()
 
-    if choice == "0":
-        print("Goodbye!")
-        return
+        if choice == "0":
+            print("Goodbye!")
+            return
 
-    try:
-        action_completed = handle_action(game, choice)
+        try:
+            action_completed = handle_action(game, choice)
 
-        if action_completed and not game.is_over:
-            game.end_turn()
+            if action_completed and not game.is_over:
+                game.end_turn()
 
-    except ValueError as error:
-        print(f"Action could not be completed: {error}")
+        except ValueError as error:
+            print(f"Action could not be completed: {error}")
 
     print(f"{game.winner.name} wins the game!")
-
 
 def create_game():
     """Create the initial two-player game state."""
